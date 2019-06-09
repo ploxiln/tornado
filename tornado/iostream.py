@@ -856,6 +856,7 @@ class BaseIOStream(object):
             self._maybe_run_close_callback()
 
     def _set_read_callback(self, callback):
+        self._check_closed()  # Before reading, check that stream is not closed.
         assert self._read_callback is None, "Already reading"
         assert self._read_future is None, "Already reading"
         if callback is not None:
